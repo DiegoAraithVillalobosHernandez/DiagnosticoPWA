@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary"  data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            Gestión de personal
+          </a>
+        </div>
+      </nav>
+
+      <div class="container mt-3">
+          <section>
+              <div class="row">
+                <div class="col-12 text-end">
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#mdlCreate">+</button>
+                </div>
+                <div class="col-12">
+                    <table class="table table-dark table-hover table-striped mt-3">
+                      <thead>
+                        <tr >
+                          <th scope="col">#</th>
+                          <th scope="col">Avatar</th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Email</th>
+                          <th scope="col text-center" rowspan="3">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="dragUsers">
+                        
+                      </tbody>
+                    </table>
+                </div>
+              </div>
+          </section>
+      </div>
+
+      <!----Modals ---->
+    <div class="modal fade" id="mdlCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white" data-bs-theme="dark">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Registro</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="nameR" placeholder="xd">
+                        <label for="nameR">Nombre</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="workR" placeholder="xd">
+                        <label for="workR">Trabajo</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="registerUser()">Guardar</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mdlUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Actualización</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="nameU" placeholder="xd">
+                        <label for="nameU">Nombre</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="workU" placeholder="xd">
+                        <label for="workU">Trabajo</label>
+                    </div>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="updateUser()">Actualizar</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mdlShow" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Información</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 text-center my-3">
+                            <img src="" id="imgS"  width="100" alt="...">
+                        </div> 
+                        <div class="col-12 col-sm-6">
+                            <label for="nameS">Nombre</label>
+                            <span id="nameS"></span>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="workS">Email</label>
+                            <span id="workS"></span>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="./main.js"></script>
+</body>
+</html>
